@@ -45,4 +45,4 @@ Diagnostic view tracking employee turnover triggers, resignation timelines, prim
 * **Risk Identification:** Pinpointing departments and management lines experiencing high attrition to implement preemptive retention strategies.
 
 ---
-*Developed with 💡 by [Mamdooh](https://github.com/Mamdo0uh)*
+*Developed 💡 by [Mamdooh](https://github.com/Mamdo0uh) | Connect with me on [LinkedIn](https://www.linkedin.com/flagship-web/in/mohammed-mamdouh-986976224/)*
