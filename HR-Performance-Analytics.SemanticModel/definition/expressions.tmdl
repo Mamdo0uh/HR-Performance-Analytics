@@ -1,0 +1,15 @@
+expression 'Department Bridge' =
+		let
+		    Source = Excel.Workbook(File.Contents("D:\HR-Performance-Analytics\Data Sources\BridgeTables.xlsx"), null, true),
+		    #"Department Bridge_Sheet" = Source{[Item="Department Bridge",Kind="Sheet"]}[Data],
+		    #"Changed Type" = Table.TransformColumnTypes(#"Department Bridge_Sheet",{{"Column1", type text}, {"Column2", type text}}),
+		    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"Department", type text}, {"Manager", type text}})
+		in
+		    #"Changed Type1"
+	lineageTag: 99df7382-1f13-4e1c-8092-dc5b82769b37
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,61 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 114.47560975609747,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "FEMPLOYEES",
+          "nodeLineageTag": "10169ae9-5ab2-4395-a876-41c554662c2d",
+          "size": {
+            "height": 372,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 406,
+            "y": 23
+          },
+          "nodeIndex": "Calendar",
+          "nodeLineageTag": "895b32fd-478f-4bd5-95be-175e59bb601a",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 690,
+            "y": 134
+          },
+          "nodeIndex": "Calculations",
+          "nodeLineageTag": "ed596443-d121-47c3-8c72-b26ce8fccf4a",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 94.252873563218387,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

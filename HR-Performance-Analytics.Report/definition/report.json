@@ -1,0 +1,149 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY26SU07",
+      "reportVersionAtImport": {
+        "visual": "2.11.0",
+        "report": "3.4.0",
+        "page": "2.3.1"
+      },
+      "type": "SharedResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY26SU07",
+          "path": "BaseThemes/CY26SU07.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "check_(1)09547291716479966.png",
+          "path": "check_(1)09547291716479966.png",
+          "type": "Image"
+        },
+        {
+          "name": "employee2385289914706803.png",
+          "path": "employee2385289914706803.png",
+          "type": "Image"
+        },
+        {
+          "name": "github338086477434425.png",
+          "path": "github338086477434425.png",
+          "type": "Image"
+        },
+        {
+          "name": "hired_(1)34148858406355653.png",
+          "path": "hired_(1)34148858406355653.png",
+          "type": "Image"
+        },
+        {
+          "name": "hiring46549471610783644.png",
+          "path": "hiring46549471610783644.png",
+          "type": "Image"
+        },
+        {
+          "name": "hr_(2)5508041893779518.png",
+          "path": "hr_(2)5508041893779518.png",
+          "type": "Image"
+        },
+        {
+          "name": "job-loss0223446207789616.png",
+          "path": "job-loss0223446207789616.png",
+          "type": "Image"
+        },
+        {
+          "name": "linkedin_(1)06570258586715061.png",
+          "path": "linkedin_(1)06570258586715061.png",
+          "type": "Image"
+        },
+        {
+          "name": "loser-sitting-resigned-silhoue3698883869992635.png",
+          "path": "loser-sitting-resigned-silhoue3698883869992635.png",
+          "type": "Image"
+        },
+        {
+          "name": "summary-check9267509561482484.png",
+          "path": "summary-check9267509561482484.png",
+          "type": "Image"
+        },
+        {
+          "name": "the-blowup-C8D0upr8H-Y-unsplas1889569767387158.jpg",
+          "path": "the-blowup-C8D0upr8H-Y-unsplas1889569767387158.jpg",
+          "type": "Image"
+        },
+        {
+          "name": "the-blowup-C8D0upr8H-Y-unsplas26414244442715973.jpg",
+          "path": "the-blowup-C8D0upr8H-Y-unsplas26414244442715973.jpg",
+          "type": "Image"
+        },
+        {
+          "name": "the-blowup-C8D0upr8H-Y-unsplas3213302881210449.jpg",
+          "path": "the-blowup-C8D0upr8H-Y-unsplas3213302881210449.jpg",
+          "type": "Image"
+        },
+        {
+          "name": "the-blowup-C8D0upr8H-Y-unsplas6997222947638596.jpg",
+          "path": "the-blowup-C8D0upr8H-Y-unsplas6997222947638596.jpg",
+          "type": "Image"
+        },
+        {
+          "name": "turnover_(1)4282199036989417.png",
+          "path": "turnover_(1)4282199036989417.png",
+          "type": "Image"
+        },
+        {
+          "name": "yubing-zhang-knrzn8Qramg-unspl981886394134052.jpg",
+          "path": "yubing-zhang-knrzn8Qramg-unspl981886394134052.jpg",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}

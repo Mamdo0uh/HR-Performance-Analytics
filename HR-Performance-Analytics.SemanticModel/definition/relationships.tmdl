@@ -1,0 +1,19 @@
+relationship 50ff80ed-0352-4f75-b32a-5757dfd776dd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FEMPLOYEES.'Birth Date'
+	toColumn: LocalDateTable_4cc3e9f0-9009-4551-bfdb-e70e8ea15134.Date
+
+relationship f34ea3c7-3a9b-4094-bb69-1d51a1307484
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendar.Date
+	toColumn: LocalDateTable_bdbd897d-572a-4091-a048-caf13bfdea7a.Date
+
+relationship 258f0193-522f-a7a8-858c-ce42081e0346
+	fromColumn: FEMPLOYEES.'Hire Date'
+	toColumn: Calendar.Date
+
+relationship 2ee5ac43-9055-7051-62c6-bf326efe5966
+	isActive: false
+	fromColumn: FEMPLOYEES.'Termination Date'
+	toColumn: Calendar.Date
+

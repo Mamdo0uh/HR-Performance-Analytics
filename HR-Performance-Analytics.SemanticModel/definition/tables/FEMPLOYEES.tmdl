@@ -1,0 +1,151 @@
+table FEMPLOYEES
+	lineageTag: 10169ae9-5ab2-4395-a876-41c554662c2d
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 6fea7153-256a-417d-a0a0-ea64e69ea25d
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Employee
+		dataType: string
+		lineageTag: 8b95cc96-a2ce-4df5-8dea-fd06edc6fb23
+		summarizeBy: none
+		sourceColumn: Employee
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gender
+		dataType: string
+		lineageTag: ce17d313-9b57-4981-aa1e-ddca02eae8f3
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Birth Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 78fcdd47-2764-421b-8256-fc0d9b5d98de
+		summarizeBy: none
+		sourceColumn: Birth Date
+
+		variation Variation
+			isDefault
+			relationship: 50ff80ed-0352-4f75-b32a-5757dfd776dd
+			defaultHierarchy: LocalDateTable_4cc3e9f0-9009-4551-bfdb-e70e8ea15134.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Hire Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: af5a3b7f-498f-43ac-bfa8-f6a3241c9377
+		summarizeBy: none
+		sourceColumn: Hire Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Termination Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0cd48da9-20b2-457c-85b2-8ec2e73d01dd
+		summarizeBy: none
+		sourceColumn: Termination Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Termination Reason'
+		dataType: string
+		lineageTag: 1186c86a-c4d6-4252-9651-b15e17e64aeb
+		summarizeBy: none
+		sourceColumn: Termination Reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column Education
+		dataType: string
+		lineageTag: cf4bd8c8-c77d-4efb-8f2e-2b74e387668e
+		summarizeBy: none
+		sourceColumn: Education
+
+		annotation SummarizationSetBy = Automatic
+
+	column Position
+		dataType: string
+		lineageTag: cb2e570a-de4e-4a52-b706-7ed1fccd8521
+		summarizeBy: none
+		sourceColumn: Position
+
+		annotation SummarizationSetBy = Automatic
+
+	column Department
+		dataType: string
+		lineageTag: 446cc156-748b-4f43-a316-1816589ad123
+		summarizeBy: none
+		sourceColumn: Department
+
+		annotation SummarizationSetBy = Automatic
+
+	column Manager
+		dataType: string
+		lineageTag: 88597075-693b-4b01-a421-e2565c4d85ee
+		summarizeBy: none
+		sourceColumn: Manager
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Service period' =
+			
+			VAR Ennd =
+			IF(
+			    ISBLANK([Termination Date]),
+			    DATE(2019,12,31),
+			    [Termination Date]
+			)
+			VAR annual =
+			DATEDIFF([Hire Date], Ennd, YEAR)
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    annual <= 2, "0-2 Years",
+			    annual <= 5, "3-5 Years",
+			    annual <= 8, "6-8 Years",
+			    "Other"
+			)
+		lineageTag: 60ba004b-6f76-493d-8920-2f1f31c32167
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FEMPLOYEES = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("D:\HR-Performance-Analytics\Data Sources\HRDatabase.xlsx"), null, true),
+				    Sheet1_Sheet = Source{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Employee Registration", type any}, {"Column2", type text}, {"Column3", type text}, {"Column4", type any}, {"Column5", type any}, {"Column6", type any}, {"Column7", type text}, {"Column8", type text}, {"Column9", type text}, {"Column10", type text}}),
+				    #"Removed Top Rows" = Table.Skip(#"Changed Type",3),
+				    #"Promoted Headers1" = Table.PromoteHeaders(#"Removed Top Rows", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers1",{{"ID", type any}, {"Employee", type text}, {"Gender", type text}, {"Birth Date", type any}, {"Hire Date", type any}, {"Termination Date", type any}, {"Termination Reason", type text}, {"Education", type text}, {"Position", type text}, {"Department", type text}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type1", each ([ID] <> null and [ID] <> "Hired between 2016 - 2019" and [ID] <> "ID")),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Filtered Rows",{{"ID", Int64.Type}, {"Employee", type text}, {"Gender", type text}, {"Birth Date", type date}, {"Hire Date", type date}, {"Termination Date", type date}, {"Termination Reason", type text}, {"Education", type text}, {"Position", type text}, {"Department", type text}}),
+				    #"Merged Queries" = Table.NestedJoin(#"Changed Type2", {"Department"}, #"Department Bridge", {"Department"}, "Department Bridge", JoinKind.LeftOuter),
+				    #"Expanded Department Bridge" = Table.ExpandTableColumn(#"Merged Queries", "Department Bridge", {"Manager"}, {"Manager"})
+				in
+				    #"Expanded Department Bridge"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,125 @@
+table Calculations
+	lineageTag: ed596443-d121-47c3-8c72-b26ce8fccf4a
+
+	measure Hiring = DISTINCTCOUNT(FEMPLOYEES[ID])
+		formatString: 0
+		lineageTag: 397301e7-f12c-4141-b5b3-52f3529703fb
+
+	measure Resignation =
+			
+			CALCULATE (
+			    COUNTROWS ( FEMPLOYEES ),
+			    FEMPLOYEES[Termination Date] <> BLANK (),
+			    USERELATIONSHIP ( 'Calendar'[Date], FEMPLOYEES[Termination Date] )
+			)
+		formatString: 0
+		lineageTag: 5d93907f-4cef-4bf5-9fa4-a0c1cd68fb89
+
+	measure 'Active Emp' =
+			
+			CALCULATE (
+			    [Hiring] - [Resignation],
+			    FILTER (
+			        ALL ( 'Calendar'[Date] ),
+			        'Calendar'[Date] <= MAX ( 'Calendar'[Date] )
+			    )
+			)
+		formatString: 0
+		lineageTag: 8a1e7e86-3ca4-4ff1-b415-ee9176bcf65e
+
+	measure 'Turnover Rate' = DIVIDE([Resignation],[Hiring])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: b2968d0a-79ff-4f6f-a368-1faeaae6413b
+
+	measure 'YoY% Active emp' =
+			
+			var REVENUECURRENT=[Active Emp]
+			VAR LYREV=CALCULATE([Active Emp],SAMEPERIODLASTYEAR('Calendar'[Date]))
+			RETURN
+			IF(ISFILTERED('Calendar'),DIVIDE(REVENUECURRENT-LYREV,LYREV),"")
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: db0f85ad-a307-4551-bd7b-df10e95a2c46
+
+	measure 'COLOR active emp' = ```
+			
+			VAR costCURRENT = [Active Emp]
+			VAR LYcost = 
+			    CALCULATE ( [Active Emp], SAMEPERIODLASTYEAR ( 'Calendar'[Date] ) )
+			RETURN
+			    IF ( costCURRENT - LYcost > 0, 1, 2 )
+			```
+		formatString: 0
+		lineageTag: f660571d-0fe6-4968-b96b-120ff68468ee
+
+	measure 'YoY% hiring' =
+			
+			var REVENUECURRENT=[Hiring]
+			VAR LYREV=CALCULATE([Hiring],SAMEPERIODLASTYEAR('Calendar'[Date]))
+			RETURN
+			IF(ISFILTERED('Calendar'),DIVIDE(REVENUECURRENT-LYREV,LYREV),"")
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 8c387cdd-fabe-484b-bf2b-1a421e7c98d3
+
+	measure 'YoY% resign' =
+			
+			var REVENUECURRENT=[Resignation]
+			VAR LYREV=CALCULATE([Resignation],SAMEPERIODLASTYEAR('Calendar'[Date]))
+			RETURN
+			IF(ISFILTERED('Calendar'),DIVIDE(REVENUECURRENT-LYREV,LYREV),"")
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: e19bb7df-a99c-4c0b-ae1f-0ed5cf6226ea
+
+	measure 'YoY% turnover' =
+			
+			var REVENUECURRENT=[Turnover Rate]
+			VAR LYREV=CALCULATE([Turnover Rate],SAMEPERIODLASTYEAR('Calendar'[Date]))
+			RETURN
+			IF(ISFILTERED('Calendar'),DIVIDE(REVENUECURRENT-LYREV,LYREV),"")
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 9e583540-11fe-4278-a608-a34864851b09
+
+	measure 'COLOR hiring' = ```
+			
+			VAR costCURRENT = [Hiring]
+			VAR LYcost = 
+			    CALCULATE ( [Hiring], SAMEPERIODLASTYEAR ( 'Calendar'[Date] ) )
+			RETURN
+			    IF ( costCURRENT - LYcost > 0, 1, 2 )
+			```
+		formatString: 0
+		lineageTag: 082549e0-06bf-44ec-a22a-53567ba806f4
+
+	measure 'COLOR resign' = ```
+			
+			VAR costCURRENT = [Resignation]
+			VAR LYcost = 
+			    CALCULATE ( [Resignation], SAMEPERIODLASTYEAR ( 'Calendar'[Date] ) )
+			RETURN
+			    IF ( costCURRENT - LYcost > 0, 2, 1 )
+			```
+		formatString: 0
+		lineageTag: 6a5b35a6-80f7-4608-ace4-7fcf44285827
+
+	measure 'COLOR turnover' = ```
+			
+			VAR costCURRENT = [Turnover Rate]
+			VAR LYcost = 
+			    CALCULATE ( [Turnover Rate], SAMEPERIODLASTYEAR ( 'Calendar'[Date] ) )
+			RETURN
+			    IF ( costCURRENT - LYcost > 0, 2, 1 )
+			```
+		formatString: 0
+		lineageTag: ab428f6f-3eba-4070-9b42-bff8196f5cdf
+
+	partition Calculations = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
