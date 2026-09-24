@@ -19,18 +19,22 @@ This project transforms raw human resources data into actionable executive insig
 
 ### 1. Main Analysis Overview
 The primary executive landing page providing a high-level summary of active headcounts, general turnover dynamics, and year-over-year performance variances.
+
 ![Main Analysis](Screenshots/Main Analysis.png)
 
 ### 2. Active Employees Analysis
 Detailed demographic and departmental breakdown of current active employees categorized by manager, department, service length, gender, and education level.
+
 ![Active Employees](Screenshots/Active Employees.png)
 
 ### 3. Hiring Analysis
 Longitudinal tracking of recruitment patterns, identifying peak hiring seasons, top-performing sourcing channels, and department-wise talent acquisition distribution.
+
 ![Hiring Analysis](Screenshots/Hiring Analysis.png)
 
 ### 4. Resignations Analysis
 Diagnostic view tracking employee turnover triggers, resignation timelines, primary leaving reasons, and departmental attrition hotspots.
+
 ![Resignations Analysis](Screenshots/Resignations Analysis.png)
 
 ---
